@@ -3,7 +3,8 @@ import axios from 'axios';
 import {addUsers, isFetching} from '../store/reducers/users';
 
 const API = {
-  get: '/users'
+  get: '/users',
+  getPosts: '/posts?userId='
 };
 
 export const getUsers = () => {
@@ -17,4 +18,14 @@ export const getUsers = () => {
     dispatch(addUsers(response.data));
     dispatch(isFetching(false));
   }
+}
+
+
+export const getUserPosts = async (id) => {
+  const response = await axios({
+    method: 'GET',
+    url: API.getPosts + id
+  });
+
+  return response.data;
 }

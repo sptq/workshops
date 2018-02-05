@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
 import UsersList from './UsersList';
+import UserPosts from './UserPosts';
+
 import {getUsers} from './services/userService';
 
 class App extends Component {
@@ -10,10 +12,14 @@ class App extends Component {
   }
 
   render() {
-    const {fetching} = this.props;
+    const {fetching, selectedUser} = this.props;
     return (
       <div>
         {fetching ? <div>Loading</div> : <UsersList />}
+
+        <br/><br/><hr/>
+
+        {selectedUser && <UserPosts/> }
       </div>
     );
   }
@@ -21,7 +27,8 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    fetching: state.users.fetching
+    fetching: state.users.fetching,
+    selectedUser: state.users.selectedUser
   }
 }
 
